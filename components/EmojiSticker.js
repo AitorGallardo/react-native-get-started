@@ -10,6 +10,9 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
+// It temporary solves error with react-native-reanimated on web
+window._frameTimestamp = null
+
 //The createAnimatedComponent() can wrap any component. It looks at the style prop of the component,
 //determines which value is animated, and then applies updates to create an animation.
 const AnimatedImage = Animated.createAnimatedComponent(Image);
@@ -48,8 +51,8 @@ export default function EmojiSticker({ imageSize, stickerSource }) {
   const imageStyle = useAnimatedStyle(() => {
     // I did remove withSpring() animation cause its not working
     return {
-      width: scaleImage.value,
-      height: scaleImage.value,
+      width: withSpring(scaleImage.value),
+      height: withSpring(scaleImage.value),
     };
   });
   const containerStyle = useAnimatedStyle(() => {
