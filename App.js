@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import Button from './components/Button';
 import ImageViewer from './components/ImageViewer';
@@ -50,16 +51,19 @@ export default function App() {
     }
   };
   return (
-    <View style={styles.container}>
+    // We need to wrap the root level app to get gesture interactions to work
+    <GestureHandlerRootView style={styles.container}>
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
-      <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </EmojiPicker>
       <View style={styles.imageContainer}>
         <ImageViewer
           placeholderImageSource={PlaceholderImage}
           selectedImage={selectedImage}
         />
-        {pickedEmoji !== null ? <EmojiSticker imageSize={40} stickerSource={pickedEmoji} /> : null}
+        {pickedEmoji !== null ? (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        ) : null}
       </View>
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
@@ -87,7 +91,7 @@ export default function App() {
         </View>
       )}
       <StatusBar style='auto' />
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
