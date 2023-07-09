@@ -91,6 +91,7 @@ export default function App() {
   };
 
   return (
+    
     // We need to wrap the root level app to get gesture interactions to work
     <GestureHandlerRootView style={styles.container}>
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
@@ -133,7 +134,7 @@ export default function App() {
           />
         </View>
       )}
-      <StatusBar style='auto' />
+      <StatusBar style='light' />
     </GestureHandlerRootView>
   );
 }
